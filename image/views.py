@@ -13,13 +13,15 @@ class DisplayView(APIView):
    serializer_class = ImageSerializer
 
    def post(self, request, *args, **kwargs):
+      file = ''
       try:
          file = request.POST.get('file')
       except KeyError:
          return Response(json.dumps({'message': "Not Uploaded"}), status=400)   
       name = request.POST.get('name')
-      
-      return Response(json.dumps({'message': "Uploaded"}), status=200)   
+      if file:
+         return Response(json.dumps({'message': "Uploaded"}), status=200)   
+      return Response(json.dumps({'message': "No file found"}), status=400)   
 
         
         
